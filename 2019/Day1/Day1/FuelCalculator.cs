@@ -8,9 +8,19 @@ namespace Day1
     {
         public static int DetermineFuelRequired(int mass)
         {
-            return decimal.ToInt32(Math.Floor(mass / 3M) - 2);
+            var fuel = decimal.ToInt32(Math.Floor(mass / 3M) - 2);
+            return fuel > 0 ? fuel : 0;
         }
 
-        // ToDo : Negative fuel loop?
+        public static int DetermineFuelTotal(int mass, int total = 0)
+        {
+            if (mass <= 0)
+            {
+                return total;
+            }
+
+            var fuel = DetermineFuelRequired(mass);
+            return DetermineFuelTotal(fuel, total + fuel);
+        }
     }
 }
