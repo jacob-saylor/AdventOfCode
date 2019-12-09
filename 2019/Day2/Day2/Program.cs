@@ -6,7 +6,13 @@ namespace Day2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string line = string.Empty;
+            System.IO.StreamReader file = new System.IO.StreamReader(@"input.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                // ToDo: Load the programs in
+            }
+            file.Close();
         }
     }
 }
