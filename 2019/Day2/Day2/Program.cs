@@ -11,7 +11,13 @@ namespace Day2
             System.IO.StreamReader file = new System.IO.StreamReader(@"input.txt");
             while ((line = file.ReadLine()) != null)
             {                
-                Debug.WriteLine(IntcodeProgram.ProcessProgramString(line));
+                for(int i=0; i <= 99; i++)
+                {
+                    for(int j = 0; j<99; j++)
+                    {
+                        Debug.WriteLine(IntcodeProgram.ProcessProgramString(line, i, j));
+                    }
+                }                
             }
             file.Close();
         }

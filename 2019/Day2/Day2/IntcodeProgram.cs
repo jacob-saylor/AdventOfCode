@@ -7,10 +7,16 @@ namespace Day2
 {
     public static class IntcodeProgram
     {        
-        public static string ProcessProgramString(string codes)
+        public static string ProcessProgramString(string codes, int noun = 0, int verb = 0)
         {
             var program = codes.Split(',').Select(Int32.Parse).ToList();
-                        
+
+            if(noun != 0 && verb != 0)
+            {
+                program[1] = noun;
+                program[2] = verb;
+            }            
+
             int counter = 0;
             while(counter <= program.Count)
             {
@@ -26,6 +32,12 @@ namespace Day2
 
                 counter += 4;
             }
+
+            if(program[0] == 19690720)
+            {
+                Console.WriteLine($"Noun {noun}");
+                Console.WriteLine($"Verb {verb}");
+            }            
 
             return string.Join<int>(",", program);
         }       
