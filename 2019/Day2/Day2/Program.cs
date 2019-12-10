@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Day2
 {
@@ -9,8 +10,8 @@ namespace Day2
             string line = string.Empty;
             System.IO.StreamReader file = new System.IO.StreamReader(@"input.txt");
             while ((line = file.ReadLine()) != null)
-            {
-                // ToDo: Load the programs in
+            {                
+                Debug.WriteLine(IntcodeProgram.ProcessProgramString(line));
             }
             file.Close();
         }
