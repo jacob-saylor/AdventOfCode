@@ -18,8 +18,20 @@ namespace Day3
 
             // Determine where the points are equal (Overlapping wires)    
             var intersections = firstWireVectors.Intersect(secondWireVectors).ToList();
+            intersections.Remove(new LocationVector { X = 0, Y = 0});
+            var lowestDistance = 0;
+            var hub = new LocationVector { X = 0, Y = 0 };
 
-            return 0;
+            foreach (var intersection in intersections)
+            {
+                var distance = DetermineDistance(hub, intersection);                
+                if(lowestDistance == 0 || distance < lowestDistance)
+                {
+                    lowestDistance = distance;
+                }
+            }
+
+            return lowestDistance;
         }
 
         private static List<LocationVector> BuildVectorList(List<string> commandVectors)
@@ -40,44 +52,37 @@ namespace Day3
 
             return vectorList;
         }
-
+                
         private static List<LocationVector> FillInLocations(LocationVector startingVector, LocationVector targetVector, Command command)
         {
-            // ToDo : Screwed up the logic here as far as "drawing the line". Need to rework
+            // Collection of vectors that are the fillers / wire
             var vectors = new List<LocationVector>();
-            if (command == Command.Right)
+            if (command == Command.Left) 
             {
-                var distance = targetVector.X - startingVector.X;
-                for (int i = startingVector.X + 1; i < distance; i++)
+                for(int i = startingVector.X -1; i > targetVector.X; i--)
                 {
                     vectors.Add(new LocationVector { X = i, Y = startingVector.Y });
                 }
             }
-
-            if (command == Command.Left)
+            else if(command == Command.Down)
             {
-                var distance = startingVector.X - targetVector.X;
-                for (int i = startingVector.X - 1; i > distance; i--)
+                for (int i = startingVector.Y - 1; i > targetVector.Y; i--)
+                {
+                    vectors.Add(new LocationVector { X = startingVector.X, Y = i });
+                }
+            }
+            else if (command == Command.Up)
+            {
+                for (int i = startingVector.Y + 1; i < targetVector.Y; i++)
+                {
+                    vectors.Add(new LocationVector { X = startingVector.X, Y = i });
+                }
+            }
+            else if (command == Command.Right)
+            {
+                for (int i = startingVector.X + 1; i < targetVector.X; i++)
                 {
                     vectors.Add(new LocationVector { X = i, Y = startingVector.Y });
-                }
-            }
-
-            if (command == Command.Up)
-            {
-                var distance = targetVector.Y - startingVector.Y;
-                for (int i = startingVector.Y + 1; i < distance; i++)
-                {
-                    vectors.Add(new LocationVector { X = startingVector.X, Y = i });
-                }
-            }
-
-            if (command == Command.Down)
-            {
-                var distance = startingVector.Y - targetVector.Y;
-                for (int i = targetVector.Y - 1; i > distance; i--)
-                {
-                    vectors.Add(new LocationVector { X = startingVector.X, Y = i });
                 }
             }
 
@@ -90,7 +95,7 @@ namespace Day3
         }
 
         private static LocationVector CalculateLocation(LocationVector location, string commandVector, Command command)
-        {            
+        {
             var action = commandVector.Substring(1, commandVector.Length - 1);
 
             return command switch

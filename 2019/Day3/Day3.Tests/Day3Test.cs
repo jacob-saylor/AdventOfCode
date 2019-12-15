@@ -6,6 +6,17 @@ namespace Day3.Tests
     public class Day3Test
     {
         [TestMethod]
+        public void IntroSample()
+        {
+            var firstWire = "R8,U5,L5,D3";
+            var secondWire = "U7,R6,D4,L4";
+
+            var result = WireCalculation.DetermineManhattanDistance(firstWire, secondWire);
+
+            Assert.AreEqual(6, result);
+        }
+
+        [TestMethod]
         public void Sample1()
         {
             var firstWire = "R75,D30,R83,U83,L12,D49,R71,U7,L72";
@@ -25,6 +36,6 @@ namespace Day3.Tests
             var result = WireCalculation.DetermineManhattanDistance(firstWire, secondWire);
 
             Assert.AreEqual(135, result);
-        }
+        }                
     }
 }

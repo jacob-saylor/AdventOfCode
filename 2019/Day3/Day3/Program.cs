@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Day3
 {
@@ -6,16 +7,17 @@ namespace Day3
     {
         static void Main(string[] args)
         {
+            var lines = new List<string>();
+
             string line = string.Empty;
             System.IO.StreamReader file = new System.IO.StreamReader(@"input.txt");
             while ((line = file.ReadLine()) != null)
             {
-                Console.WriteLine("Hit");
-                // ToDo : "Draw" the wire
+                lines.Add(line);
             }
 
+            Console.WriteLine(WireCalculation.DetermineManhattanDistance(lines[0], lines[1]));
             file.Close();
-
             Console.ReadLine();
         }
     }
