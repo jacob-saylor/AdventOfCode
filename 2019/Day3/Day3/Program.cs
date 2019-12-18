@@ -17,6 +17,7 @@ namespace Day3
             }
 
             Console.WriteLine(WireCalculation.DetermineManhattanDistance(lines[0], lines[1]));
+            Console.WriteLine(WireCalculation.DetermineShortestLength(lines[0], lines[1]));
             file.Close();
             Console.ReadLine();
         }

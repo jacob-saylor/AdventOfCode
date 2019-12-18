@@ -18,7 +18,8 @@ namespace Day3
 
             // Determine where the points are equal (Overlapping wires)    
             var intersections = firstWireVectors.Intersect(secondWireVectors).ToList();
-            intersections.Remove(new LocationVector { X = 0, Y = 0});
+            intersections.Remove(new LocationVector { X = 0, Y = 0 });
+
             var lowestDistance = 0;
             var hub = new LocationVector { X = 0, Y = 0 };
 
@@ -26,6 +27,35 @@ namespace Day3
             {
                 var distance = DetermineDistance(hub, intersection);                
                 if(lowestDistance == 0 || distance < lowestDistance)
+                {
+                    lowestDistance = distance;
+                }
+            }
+
+            return lowestDistance;
+        }
+
+        public static int DetermineShortestLength(string firstWire, string secondWire)
+        {
+            var firstWireCommands = firstWire.Split(',').ToList();
+            var secondWireCommands = secondWire.Split(',').ToList();
+
+            var firstWireVectors = BuildVectorList(firstWireCommands);
+            var secondWireVectors = BuildVectorList(secondWireCommands);
+
+            // Determine where the points are equal (Overlapping wires)    
+            var intersections = firstWireVectors.Intersect(secondWireVectors).ToList();
+            intersections.Remove(new LocationVector { X = 0, Y = 0 });
+
+            // Pull the index based on the intersection
+            // Add the two together
+            // Determine the lowest
+
+            var lowestDistance = 0;
+            foreach (var intersection in intersections)
+            {
+                var distance = firstWireVectors.IndexOf(intersection) + secondWireVectors.IndexOf(intersection);
+                if (lowestDistance == 0 || distance < lowestDistance)
                 {
                     lowestDistance = distance;
                 }
